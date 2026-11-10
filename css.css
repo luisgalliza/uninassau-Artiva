@@ -1,0 +1,1164 @@
+/* =========================================================
+   ARTIVA — css.css
+   Organizado por seção. Correções já embutidas.
+
+   ÍNDICE
+   01. Base
+   02. Navbar e botões
+   03. Início (hero, card em destaque, lista de artistas)
+   04. Topo das páginas internas
+   05. Artistas
+   06. Como funciona
+   07. Sobre nós
+   08. Faixa que rola, player de música, equipe
+   09. Chamada final e rodapé
+   10. Contratar (formulário)
+   11. Efeitos (fogos, partículas, lasers, brilho do mouse)
+   12. Animações
+   13. Responsivo
+   14. Movimento reduzido
+========================================================= */
+
+
+/* =========================================
+   01. BASE
+========================================= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+    background-color: #151518;
+    color: #ffffff;
+    line-height: 1.5;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; }
+
+a.btn-principal,
+a.btn-secundario,
+a.btn-card,
+a.btn-contratar { display: inline-block; text-align: center; }
+a.logo { display: inline-block; }
+a.artista { display: flex; }
+
+
+/* =========================================
+   02. NAVBAR E BOTÕES
+========================================= */
+.navbar {
+    height: 75px;
+    padding: 0 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(21, 21, 24, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #2a2a2f;
+}
+
+/* logo com traço verde indo e voltando embaixo */
+.logo {
+    position: relative;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: #a15ee8;
+}
+.logo::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: -7px;
+    width: 100%; height: 3px;
+    border-radius: 3px;
+    background: rgba(124, 255, 155, 0.15);
+}
+.logo::before {
+    content: "";
+    position: absolute;
+    left: 0; bottom: -7px;
+    width: 35%; height: 3px;
+    z-index: 1;
+    border-radius: 3px;
+    background: #7cff9b;
+    box-shadow: 0 0 12px rgba(124, 255, 155, 0.9);
+    animation: vai-e-volta 1.4s ease-in-out infinite alternate;
+}
+
+/* menu: só links (o botão "Contratar artista" fica fora do <nav>) */
+.menu { display: flex; align-items: center; gap: 35px; }
+
+.menu a {
+    color: #a8a8ad;
+    font-size: 14px;
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+    transition: 0.25s ease;
+}
+.menu a:hover,
+.menu a.ativo {
+    color: #ffffff;
+    border-bottom-color: #7cff9b;
+}
+
+/* botões */
+.btn-contratar {
+    position: relative;
+    overflow: hidden;
+    padding: 11px 20px;
+    border: 1px solid #8b4fd8;
+    border-radius: 6px;
+    background: transparent;
+    color: #b889ff;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+.btn-contratar:hover,
+.btn-contratar.ativo-btn { background: #8b4fd8; color: #ffffff; }
+
+.btn-principal {
+    position: relative;
+    overflow: hidden;
+    padding: 14px 25px;
+    border: none;
+    border-radius: 6px;
+    background: #8b4fd8;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+.btn-principal:hover {
+    background: #a15ee8;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(155, 93, 229, 0.25);
+}
+
+.btn-secundario {
+    padding: 14px 25px;
+    border: 1px solid #444449;
+    border-radius: 6px;
+    background: transparent;
+    color: #c8c8cc;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+.btn-secundario:hover {
+    border-color: #7cff9b;
+    color: #7cff9b;
+    box-shadow: 0 0 20px rgba(124, 255, 155, 0.08);
+}
+
+.btn-card {
+    width: fit-content;
+    padding: 10px 18px;
+    border: 1px solid #5d4772;
+    border-radius: 5px;
+    background: transparent;
+    color: #b889ff;
+    font-size: 12px;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+.btn-card:hover { background: #8b4fd8; border-color: #8b4fd8; color: #ffffff; }
+
+/* brilho que passa nos botões */
+.btn-principal::after,
+.btn-contratar::after {
+    content: "";
+    position: absolute;
+    top: 0; left: -80%;
+    width: 50%; height: 100%;
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+    transform: skewX(-20deg);
+}
+.btn-principal:hover::after,
+.btn-contratar:hover::after { left: 130%; transition: left 0.7s ease; }
+
+
+/* =========================================
+   03. INÍCIO
+========================================= */
+.inicio {
+    min-height: calc(100vh - 75px);
+    padding: 80px 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 70% 45%, rgba(155, 93, 229, 0.12), transparent 35%),
+        radial-gradient(circle at 85% 70%, rgba(124, 255, 155, 0.06), transparent 30%);
+}
+
+.conteudo-inicio { max-width: 720px; position: relative; z-index: 2; }
+
+.tag {
+    display: inline-block;
+    padding: 7px 14px;
+    margin-bottom: 22px;
+    border: 1px solid rgba(155, 93, 229, 0.45);
+    border-radius: 30px;
+    background-color: rgba(155, 93, 229, 0.06);
+    color: #b889ff;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.inicio h1 {
+    max-width: 720px;
+    margin-bottom: 25px;
+    font-size: 57px;
+    line-height: 1.08;
+    letter-spacing: -2px;
+    color: #ffffff;
+}
+
+/* "Seu momento." cresce e brilha ao passar o mouse */
+.inicio h1 span {
+    display: inline-block;
+    cursor: pointer;
+    transform-origin: left center;
+    color: #a15ee8;
+    text-shadow: 0 0 35px rgba(161, 94, 232, 0.25);
+    transition: transform 0.35s cubic-bezier(0.3, 1.6, 0.5, 1), text-shadow 0.35s ease, color 0.35s ease;
+}
+.inicio h1 span:hover {
+    transform: scale(1.15);
+    color: #b889ff;
+    text-shadow: 0 0 40px rgba(124, 255, 155, 0.55), 0 0 15px rgba(161, 94, 232, 0.6);
+}
+
+.conteudo-inicio > p {
+    max-width: 570px;
+    margin-bottom: 32px;
+    color: #a8a8ad;
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+.botoes-inicio { display: flex; align-items: center; gap: 15px; margin-bottom: 55px; }
+
+/* lista de artistas disponíveis: 4 colunas alinhadas */
+.artistas-destaque { display: flex; flex-direction: column; gap: 15px; }
+
+.artistas-destaque > span {
+    color: #66666c;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.nomes-artistas {
+    display: grid;
+    grid-template-columns: repeat(4, max-content);
+    gap: 24px 44px;
+}
+
+.artista { display: flex; flex-direction: column; gap: 5px; cursor: pointer; transition: 0.25s ease; }
+.artista strong { color: #d6d6da; font-size: 14px; }
+.artista small { color: #66666c; font-size: 9px; letter-spacing: 1.5px; }
+.artista:hover { transform: translateY(-3px); }
+.artista:hover strong { color: #b889ff; }
+.artista:hover small { color: #7cff9b; }
+
+/* card em destaque (3 atrações em sequência) */
+.destaque-artista {
+    width: 390px;
+    height: 440px;
+    flex-shrink: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.circulo-roxo {
+    width: 310px;
+    height: 310px;
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(155, 93, 229, 0.28), rgba(155, 93, 229, 0.05) 55%, transparent 70%);
+    filter: blur(5px);
+    animation: brilho 4s ease-in-out infinite;
+}
+
+.card-artista {
+    width: 300px;
+    min-height: 350px;
+    position: relative;
+    z-index: 2;
+    padding: 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border: 1px solid rgba(155, 93, 229, 0.4);
+    border-radius: 15px;
+    background: linear-gradient(145deg, rgba(39, 39, 43, 0.95), rgba(25, 25, 28, 0.98));
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.45), 0 0 40px rgba(155, 93, 229, 0.08);
+    overflow: hidden;
+    transition: 0.3s ease;
+    will-change: transform;
+}
+.card-artista:hover {
+    transform: translateY(-8px);
+    border-color: rgba(155, 93, 229, 0.7);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), 0 0 50px rgba(155, 93, 229, 0.15);
+}
+.card-artista::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    z-index: 3;
+    width: 100%; height: 2px;
+    background: #7cff9b;
+    box-shadow: 0 0 15px rgba(124, 255, 155, 0.8);
+}
+
+/* cada slide: foto + véu escuro + texto */
+.slide {
+    position: absolute;
+    inset: 0;
+    padding: 35px 35px 85px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    opacity: 0;
+    animation: troca 15s infinite;
+}
+.slide:nth-child(2) { animation-delay: 5s; }
+.slide:nth-child(3) { animation-delay: 10s; }
+
+.foto-card {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+}
+
+/* véu mais escuro no topo para o texto e a etiqueta aparecerem */
+.veu {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+        to top,
+        rgba(21, 21, 24, 0.98) 18%,
+        rgba(21, 21, 24, 0.72) 55%,
+        rgba(21, 21, 24, 0.55) 100%
+    );
+}
+
+.card-artista h2,
+.card-artista p { position: relative; z-index: 3; }
+
+.card-artista h2 {
+    margin-bottom: 10px;
+    font-size: 30px;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    color: #ffffff;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
+}
+.card-artista p {
+    margin-bottom: 25px;
+    color: #d4d4d9;
+    font-size: 13px;
+    line-height: 1.6;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* etiqueta "Atração principal" em pílula legível */
+.card-artista .badge {
+    position: absolute;
+    top: 20px; left: 20px;
+    z-index: 3;
+    padding: 6px 12px;
+    border: 1px solid rgba(124, 255, 155, 0.35);
+    border-radius: 30px;
+    background: rgba(21, 21, 24, 0.8);
+    backdrop-filter: blur(6px);
+    color: #7cff9b;
+    font-size: 9px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+}
+
+.card-artista > .btn-card { position: absolute; left: 35px; bottom: 35px; z-index: 4; }
+
+
+/* =========================================
+   04. TOPO DAS PÁGINAS INTERNAS
+========================================= */
+.topo-pagina {
+    max-width: 900px;
+    padding: 90px 100px 50px;
+    background: radial-gradient(circle at 20% 0%, rgba(155, 93, 229, 0.12), transparent 45%);
+    animation: entrada 0.7s ease backwards;
+}
+.topo-pagina h1 { margin-bottom: 18px; font-size: 48px; line-height: 1.1; letter-spacing: -2px; }
+.topo-pagina p { max-width: 560px; color: #a8a8ad; font-size: 17px; line-height: 1.7; }
+
+/* título com degradê roxo -> verde */
+.topo-pagina h1 span {
+    color: #a15ee8;
+    background: linear-gradient(90deg, #a15ee8, #7cff9b, #a15ee8);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fluxo 5s linear infinite;
+}
+.topo-pagina h1 span.pulsa {
+    display: inline-block;
+    animation: fluxo 5s linear infinite, pulsa 2s ease-in-out infinite;
+}
+
+
+/* =========================================
+   05. ARTISTAS
+========================================= */
+.titulo-secao { padding: 30px 100px 0; font-size: 26px; letter-spacing: -1px; }
+
+.grade-artistas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 25px;
+    padding: 30px 100px 90px;
+}
+.principais { padding-bottom: 40px; }
+
+.card-lista {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid #2f2f35;
+    border-radius: 12px;
+    background: #1c1c20;
+    transition: 0.3s ease;
+    will-change: transform;
+}
+.card-lista:hover { transform: translateY(-6px); border-color: rgba(155, 93, 229, 0.6); }
+.card-lista small { color: #7cff9b; font-size: 10px; font-weight: bold; letter-spacing: 1.5px; }
+.card-lista h3 { font-size: 22px; letter-spacing: -0.5px; }
+.card-lista p { flex: 1; color: #85858b; font-size: 13px; line-height: 1.6; }
+
+.card-lista.principal { border-color: rgba(124, 255, 155, 0.35); box-shadow: 0 0 30px rgba(124, 255, 155, 0.06); }
+.selo { color: #7cff9b; font-size: 10px; font-weight: bold; letter-spacing: 1.5px; }
+
+/* foto com moldura roxo + verde */
+.moldura {
+    padding: 3px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #8b4fd8, #7cff9b, #8b4fd8);
+    background-size: 200% 200%;
+    box-shadow: 0 0 25px rgba(155, 93, 229, 0.25);
+    overflow: hidden;
+    transition: 0.4s ease;
+    animation: fluxo 6s linear infinite;
+}
+.foto {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    display: block;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 15px;
+    transition: transform 0.5s ease;
+}
+.card-lista:hover .moldura { box-shadow: 0 0 40px rgba(124, 255, 155, 0.35); }
+.card-lista:hover .foto { transform: scale(1.06); }
+
+
+/* =========================================
+   06. COMO FUNCIONA
+========================================= */
+.passos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    padding: 30px 100px 60px;
+}
+.passo { padding: 28px; border-left: 2px solid #8b4fd8; border-radius: 0 10px 10px 0; background: #1c1c20; }
+.passo h3 { margin-bottom: 8px; font-size: 18px; }
+.passo p { color: #85858b; font-size: 14px; line-height: 1.6; }
+
+.numero {
+    display: inline-block;
+    margin-bottom: 14px;
+    color: #7cff9b;
+    font-size: 34px;
+    font-weight: 800;
+    cursor: pointer;
+    transform-origin: left center;
+    transition: transform 0.3s cubic-bezier(0.3, 1.6, 0.5, 1), text-shadow 0.3s ease;
+}
+.numero:hover { transform: scale(1.9); text-shadow: 0 0 25px rgba(124, 255, 155, 0.7); }
+
+
+/* =========================================
+   07. SOBRE NÓS
+========================================= */
+.historia { max-width: 760px; padding: 10px 100px 40px; }
+.historia p { margin-bottom: 20px; color: #b4b4b9; font-size: 17px; line-height: 1.8; }
+
+mark.destaque {
+    display: inline-block;
+    background: none;
+    color: #7cff9b;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.3, 1.6, 0.5, 1), color 0.3s ease, text-shadow 0.3s ease;
+}
+mark.destaque:hover { transform: scale(1.12) rotate(-2deg); color: #ffffff; text-shadow: 0 0 20px rgba(155, 93, 229, 0.9); }
+
+.numeros { display: flex; flex-wrap: wrap; gap: 25px; padding: 20px 100px 50px; }
+.numeros div {
+    flex: 1;
+    min-width: 200px;
+    padding: 26px;
+    border: 1px solid #2f2f35;
+    border-radius: 12px;
+    background: #1c1c20;
+    transition: 0.3s ease;
+}
+.numeros div:hover { transform: scale(1.06) rotate(-1deg); border-color: #7cff9b; box-shadow: 0 0 30px rgba(124, 255, 155, 0.15); }
+.numeros strong { display: block; color: #7cff9b; font-size: 56px; line-height: 1; letter-spacing: -2px; }
+.numeros span { color: #85858b; font-size: 14px; }
+
+.valores {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+    padding: 20px 100px 60px;
+}
+.valor {
+    padding: 26px;
+    border: 1px solid #2f2f35;
+    border-radius: 12px;
+    background: #1c1c20;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+.valor h3 { margin-bottom: 8px; color: #b889ff; font-size: 18px; transition: letter-spacing 0.3s ease, color 0.3s ease; }
+.valor p { color: #85858b; font-size: 14px; line-height: 1.6; }
+.valor:hover { transform: translateY(-8px) scale(1.04); border-color: #a15ee8; box-shadow: 0 0 35px rgba(155, 93, 229, 0.25); }
+.valor:hover h3 { letter-spacing: 3px; color: #7cff9b; }
+
+
+/* =========================================
+   08. FAIXA, PLAYER DE MÚSICA E EQUIPE
+========================================= */
+
+/* faixa que rola */
+.faixa { overflow: hidden; margin: 30px 0; padding: 16px 0; border-block: 1px solid #2a2a2f; }
+.faixa-trilho {
+    display: flex;
+    width: max-content;
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: transparent;
+    -webkit-text-stroke: 1px #8b4fd8;
+    animation: rola 25s linear infinite;
+    transition: color 0.3s ease;
+}
+.faixa-trilho span { padding-right: 40px; white-space: nowrap; }
+.faixa:hover .faixa-trilho { color: rgba(124, 255, 155, 0.9); -webkit-text-stroke-color: #7cff9b; animation-play-state: paused; }
+
+/* player de música */
+.musica {
+    margin: 0 100px 80px;
+    padding: 32px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    border: 1px solid rgba(155, 93, 229, 0.4);
+    border-radius: 15px;
+    background: linear-gradient(145deg, rgba(139, 79, 216, 0.15), rgba(25, 25, 28, 0.9));
+}
+.musica small { color: #7cff9b; font-size: 10px; font-weight: bold; letter-spacing: 2px; }
+.musica h3 { margin: 4px 0; font-size: 26px; letter-spacing: -1px; }
+.musica p { color: #85858b; font-size: 14px; }
+.musica .texto { flex: 1; min-width: 220px; }
+
+.equalizador { display: flex; align-items: flex-end; gap: 5px; height: 60px; }
+.equalizador i {
+    width: 7px;
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(to top, #8b4fd8, #7cff9b);
+    transform-origin: bottom;
+    animation: barra 0.9s ease-in-out infinite alternate;
+    animation-delay: var(--d);
+}
+.musica:hover .equalizador i { animation-duration: 0.4s; }
+
+/* equipe (sócios) */
+.equipe { margin: 0 100px 80px; }
+.equipe-topo small { color: #7cff9b; font-size: 10px; font-weight: bold; letter-spacing: 2px; }
+.equipe-topo h2 { margin: 6px 0 28px; font-size: 30px; letter-spacing: -1px; }
+
+.socios {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 22px;
+}
+.socio {
+    padding: 26px 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    border: 1px solid #2f2f35;
+    border-radius: 12px;
+    background: #1c1c20;
+    cursor: pointer;
+    transition: 0.3s ease;
+    animation: entrada 0.7s ease backwards;
+}
+.socio:hover { transform: translateY(-8px); border-color: #7cff9b; box-shadow: 0 0 30px rgba(124, 255, 155, 0.15); }
+.socio h3 { font-size: 18px; letter-spacing: -0.5px; }
+.socio:hover h3 { color: #b889ff; }
+.socio span { color: #85858b; font-size: 13px; letter-spacing: 1px; }
+
+.avatar {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #8b4fd8, #7cff9b);
+    color: #151518;
+    font-size: 18px;
+    font-weight: 800;
+    transition: transform 0.4s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+.socio:hover .avatar { transform: scale(1.15) rotate(-6deg); }
+
+
+/* =========================================
+   09. CHAMADA FINAL E RODAPÉ
+========================================= */
+.chamada {
+    margin: 0 100px 80px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 22px;
+    border: 1px solid rgba(155, 93, 229, 0.4);
+    border-radius: 15px;
+    background: linear-gradient(145deg, rgba(139, 79, 216, 0.15), rgba(25, 25, 28, 0.9));
+}
+.chamada h2 { font-size: 30px; letter-spacing: -1px; }
+
+.rodape {
+    padding: 30px 100px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    border-top: 1px solid #2a2a2f;
+    color: #66666c;
+    font-size: 13px;
+}
+.rodape strong { color: #a15ee8; }
+.rodape-info { display: flex; flex-direction: column; gap: 8px; }
+.rodape-info a { color: #a8a8ad; transition: color 0.25s ease; }
+.rodape-info a:hover { color: #7cff9b; }
+
+
+/* =========================================
+   10. CONTRATAR (FORMULÁRIO)
+========================================= */
+
+/* barra de progresso */
+.progresso { max-width: 1200px; margin: 0 100px; }
+.progresso-info {
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    color: #66666c;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+.progresso-info strong { color: #7cff9b; font-size: 18px; letter-spacing: -0.5px; }
+.progresso-trilho { height: 6px; border-radius: 6px; background: #2a2a2f; overflow: hidden; }
+.progresso-barra {
+    width: 0;
+    height: 100%;
+    border-radius: 6px;
+    background: linear-gradient(90deg, #8b4fd8, #7cff9b);
+    box-shadow: 0 0 14px rgba(124, 255, 155, 0.6);
+    transition: width 0.5s cubic-bezier(0.3, 1.2, 0.5, 1);
+}
+
+/* layout: formulário + resumo */
+.layout-contratar {
+    max-width: 1300px;
+    padding: 35px 100px 90px;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 35px;
+    align-items: start;
+}
+.formulario { display: flex; flex-direction: column; gap: 25px; }
+
+/* o display:grid acima ignoraria o atributo hidden; isto garante que some ao enviar */
+.layout-contratar[hidden] { display: none; }
+
+/* etapas */
+.etapa {
+    padding: 30px;
+    border: 1px solid #2f2f35;
+    border-radius: 14px;
+    background: #1c1c20;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    animation: entrada 0.7s ease backwards;
+}
+.etapa:focus-within { border-color: rgba(155, 93, 229, 0.6); box-shadow: 0 0 35px rgba(155, 93, 229, 0.1); }
+
+.etapa legend {
+    margin-left: -12px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+.etapa-num {
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #8b4fd8, #7cff9b);
+    color: #151518;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+/* escolha do artista */
+.grade-opcoes {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 14px;
+}
+.opcao-artista { position: relative; cursor: pointer; }
+.opcao-artista input { position: absolute; opacity: 0; pointer-events: none; }
+.opcao-card {
+    height: 100%;
+    padding: 8px 8px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    border: 1px solid #2f2f35;
+    border-radius: 12px;
+    background: #151518;
+    transition: 0.3s ease;
+}
+.opcao-card img {
+    width: 100%;
+    aspect-ratio: 1;
+    margin-bottom: 6px;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 8px;
+    filter: grayscale(0.6);
+    transition: 0.4s ease;
+}
+.opcao-card strong { font-size: 13px; }
+.opcao-card small { color: #66666c; font-size: 9px; letter-spacing: 1.5px; }
+.opcao-artista:hover .opcao-card { transform: translateY(-4px); border-color: rgba(155, 93, 229, 0.6); }
+.opcao-artista:hover img { filter: grayscale(0); }
+.opcao-artista input:checked + .opcao-card {
+    transform: translateY(-4px);
+    border-color: #7cff9b;
+    background: rgba(124, 255, 155, 0.06);
+    box-shadow: 0 0 25px rgba(124, 255, 155, 0.2);
+}
+.opcao-artista input:checked + .opcao-card img { filter: grayscale(0); }
+.opcao-artista input:checked + .opcao-card small { color: #7cff9b; }
+.opcao-artista input:focus-visible + .opcao-card { outline: 2px solid #b889ff; outline-offset: 2px; }
+
+/* campos */
+.linha { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.campo { margin-top: 20px; display: flex; flex-direction: column; gap: 8px; position: relative; }
+.campo > label { color: #c8c8cc; font-size: 13px; font-weight: 600; }
+.campo label small { color: #66666c; font-weight: 400; }
+
+.campo input[type="text"],
+.campo input[type="email"],
+.campo input[type="tel"],
+.campo input[type="number"],
+.campo input[type="date"],
+.campo select,
+.campo textarea {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid #3a3a40;
+    border-radius: 8px;
+    background: #151518;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 14px;
+    color-scheme: dark;
+    transition: 0.25s ease;
+}
+.campo textarea { min-height: 100px; resize: vertical; }
+.campo input::placeholder,
+.campo textarea::placeholder { color: #55555b; }
+.campo input:hover,
+.campo select:hover,
+.campo textarea:hover { border-color: #5d4772; }
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+    outline: none;
+    border-color: #8b4fd8;
+    box-shadow: 0 0 0 3px rgba(139, 79, 216, 0.25);
+}
+
+/* validação */
+.campo.tocado input:valid:not(:placeholder-shown) { border-color: rgba(124, 255, 155, 0.5); }
+.campo.tocado input:invalid,
+.campo.tocado select:invalid,
+.tentou .campo input:invalid,
+.tentou .campo select:invalid { border-color: #ff6b81; }
+
+/* slider */
+.campo output { color: #7cff9b; font-size: 16px; font-weight: 800; }
+.campo input[type="range"] { width: 100%; height: 6px; accent-color: #8b4fd8; cursor: pointer; }
+.escala { display: flex; justify-content: space-between; color: #66666c; font-size: 11px; }
+
+/* contador de caracteres */
+.contagem { align-self: flex-end; color: #66666c; font-size: 11px; }
+.contagem b { color: #b889ff; }
+
+/* chips (duração e extras) */
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip { cursor: pointer; }
+.chip input { position: absolute; opacity: 0; pointer-events: none; }
+.chip span {
+    padding: 9px 16px;
+    display: inline-block;
+    border: 1px solid #3a3a40;
+    border-radius: 30px;
+    color: #a8a8ad;
+    font-size: 13px;
+    transition: 0.25s ease;
+}
+.chip:hover span { transform: translateY(-2px); border-color: #8b4fd8; color: #ffffff; }
+.chip input:checked + span {
+    border-color: #7cff9b;
+    background: rgba(124, 255, 155, 0.1);
+    color: #7cff9b;
+    box-shadow: 0 0 18px rgba(124, 255, 155, 0.15);
+}
+.chip input:focus-visible + span { outline: 2px solid #b889ff; outline-offset: 2px; }
+
+/* termos */
+.termos { margin-top: 22px; display: flex; align-items: center; gap: 10px; color: #a8a8ad; font-size: 13px; cursor: pointer; }
+.termos input { width: 18px; height: 18px; accent-color: #7cff9b; cursor: pointer; }
+
+/* erro quando nenhum artista foi escolhido */
+.erro-grupo { margin-top: 12px; display: none; color: #ff6b81; font-size: 13px; }
+.tentou .etapa:has(.opcao-artista input:invalid) .erro-grupo { display: block; }
+.tentou .etapa:has(.opcao-artista input:invalid) { border-color: #ff6b81; }
+
+/* botão enviar */
+.btn-enviar { width: 100%; padding: 18px 25px; font-size: 16px; }
+.aviso-form { margin-top: -10px; color: #66666c; font-size: 12px; text-align: center; }
+
+/* resumo ao vivo */
+.resumo {
+    position: sticky;
+    top: 100px;
+    padding: 28px;
+    border: 1px solid rgba(155, 93, 229, 0.4);
+    border-radius: 15px;
+    background: linear-gradient(145deg, rgba(139, 79, 216, 0.15), rgba(25, 25, 28, 0.95));
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+    overflow: hidden;
+    animation: entrada 0.7s ease 0.3s backwards;
+}
+.resumo::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: #7cff9b;
+    box-shadow: 0 0 15px rgba(124, 255, 155, 0.8);
+}
+.resumo small { color: #7cff9b; font-size: 10px; font-weight: bold; letter-spacing: 2px; }
+.resumo h3 { margin: 4px 0 18px; font-size: 24px; letter-spacing: -1px; }
+.resumo dl > div {
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    border-bottom: 1px solid #2a2a2f;
+    font-size: 13px;
+}
+.resumo dt { color: #66666c; }
+.resumo dd { color: #ffffff; font-weight: 600; text-align: right; transition: color 0.3s ease; }
+.resumo dd.preenchido { color: #b889ff; }
+.garantias { margin-top: 20px; display: flex; flex-direction: column; gap: 8px; color: #85858b; font-size: 12px; }
+.garantias span:hover { color: #7cff9b; }
+
+/* tela de sucesso */
+.sucesso {
+    max-width: 640px;
+    margin: 50px auto 90px;
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    text-align: center;
+    border: 1px solid rgba(124, 255, 155, 0.4);
+    border-radius: 18px;
+    background: linear-gradient(145deg, rgba(139, 79, 216, 0.15), rgba(25, 25, 28, 0.95));
+    box-shadow: 0 0 60px rgba(124, 255, 155, 0.1);
+    animation: entrada 0.7s ease backwards;
+}
+.sucesso[hidden] { display: none; }
+.sucesso-icone {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #8b4fd8, #7cff9b);
+    color: #151518;
+    font-size: 40px;
+    font-weight: 800;
+    animation: pulsa 2s ease-in-out infinite;
+}
+.sucesso small { color: #7cff9b; font-size: 11px; font-weight: bold; letter-spacing: 2px; }
+.sucesso h2 { font-size: 34px; letter-spacing: -1.5px; }
+.sucesso p { max-width: 460px; color: #a8a8ad; line-height: 1.7; }
+.protocolo { padding: 10px 20px; border: 1px dashed #5d4772; border-radius: 8px; color: #85858b; font-size: 14px; }
+.protocolo strong { color: #7cff9b; letter-spacing: 2px; }
+.sucesso-botoes { margin-top: 10px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.sucesso-botoes a { display: inline-block; }
+
+/* tremidinha quando tem erro */
+.treme { animation: treme 0.4s ease; }
+
+
+/* =========================================
+   11. EFEITOS (criados pelo script.js)
+========================================= */
+
+/* brilho que segue o mouse */
+.brilho-mouse {
+    position: fixed;
+    top: 0; left: 0;
+    z-index: 0;
+    width: 420px; height: 420px;
+    margin: -210px 0 0 -210px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(155, 93, 229, 0.13), transparent 65%);
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* faíscas dos fogos de artifício */
+.faisca {
+    position: fixed;
+    z-index: 9999;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--cor);
+    box-shadow: 0 0 8px var(--cor);
+    pointer-events: none;
+    animation: explode 0.95s ease-out forwards;
+}
+
+/* partículas e lasers de cada artista */
+.particula {
+    position: fixed;
+    z-index: 9998;
+    pointer-events: none;
+    animation: voa 1.6s ease-out forwards;
+}
+.laser {
+    position: fixed;
+    z-index: 9998;
+    width: 3px;
+    height: 260px;
+    margin-top: -260px;
+    transform-origin: bottom center;
+    background: linear-gradient(to top, var(--cor), transparent);
+    box-shadow: 0 0 12px var(--cor);
+    pointer-events: none;
+    animation: pisca 0.7s ease-out forwards;
+}
+
+
+/* =========================================
+   12. ANIMAÇÕES
+========================================= */
+
+/* entrada escalonada dos cards */
+.card-lista,
+.passo,
+.valor,
+.historia p { animation: entrada 0.7s ease backwards; }
+
+.card-lista:nth-child(2), .passo:nth-child(2), .valor:nth-child(2), .socio:nth-child(2) { animation-delay: 0.12s; }
+.card-lista:nth-child(3), .passo:nth-child(3), .valor:nth-child(3), .socio:nth-child(3) { animation-delay: 0.24s; }
+.card-lista:nth-child(4), .passo:nth-child(4), .socio:nth-child(4) { animation-delay: 0.36s; }
+.card-lista:nth-child(5), .socio:nth-child(5) { animation-delay: 0.48s; }
+.socio:nth-child(6) { animation-delay: 0.6s; }
+.etapa:nth-of-type(2) { animation-delay: 0.12s; }
+.etapa:nth-of-type(3) { animation-delay: 0.24s; }
+
+@keyframes entrada {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes brilho {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.12); opacity: 1; }
+}
+@keyframes troca {
+    0% { opacity: 0; }
+    6%, 30% { opacity: 1; }
+    36%, 100% { opacity: 0; }
+}
+@keyframes fluxo {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+@keyframes pulsa {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+}
+@keyframes vai-e-volta {
+    from { left: 0; }
+    to { left: 65%; }
+}
+@keyframes rola { to { transform: translateX(-50%); } }
+@keyframes barra {
+    from { transform: scaleY(0.15); }
+    to { transform: scaleY(1); }
+}
+@keyframes explode {
+    0% { transform: translate(0, 0) scale(1); opacity: 1; }
+    100% { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; }
+}
+@keyframes voa {
+    0% { transform: translate(0, 0) rotate(0) scale(0.5); opacity: 0; }
+    15% { opacity: 1; }
+    100% { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(1); opacity: 0; }
+}
+@keyframes pisca {
+    0% { transform: rotate(var(--ang)) scaleY(0.2); opacity: 1; }
+    100% { transform: rotate(var(--ang)) scaleY(1); opacity: 0; }
+}
+@keyframes treme {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-5px); }
+    80% { transform: translateX(5px); }
+}
+
+
+/* =========================================
+   13. RESPONSIVO
+========================================= */
+@media (max-width: 1000px) {
+    .navbar { padding: 0 30px; }
+    .menu { display: none; }
+
+    .inicio { flex-direction: column; padding: 60px 30px; }
+    .inicio h1 { font-size: 40px; }
+    .destaque-artista { width: 100%; }
+
+    .topo-pagina,
+    .grade-artistas,
+    .passos,
+    .historia,
+    .valores,
+    .rodape { padding-left: 30px; padding-right: 30px; }
+    .topo-pagina h1 { font-size: 34px; }
+    .titulo-secao { padding: 30px 30px 0; }
+
+    .chamada { margin: 0 30px 60px; padding: 30px; }
+    .numeros { padding: 20px 30px 40px; }
+    .musica { margin: 0 30px 60px; }
+    .equipe { margin: 0 30px 60px; }
+
+    .progresso { margin: 0 30px; }
+    .layout-contratar { padding: 30px 30px 60px; grid-template-columns: 1fr; }
+    .resumo { position: static; }
+    .linha { grid-template-columns: 1fr; gap: 0; }
+    .etapa { padding: 22px; }
+}
+
+@media (max-width: 700px) {
+    .nomes-artistas { grid-template-columns: repeat(2, max-content); }
+}
+
+
+/* =========================================
+   14. MOVIMENTO REDUZIDO
+========================================= */
+@media (prefers-reduced-motion: reduce) {
+    .topo-pagina,
+    .circulo-roxo,
+    .moldura,
+    .topo-pagina h1 span,
+    .topo-pagina h1 span.pulsa,
+    .card-lista,
+    .passo,
+    .valor,
+    .historia p,
+    .socio,
+    .etapa,
+    .resumo,
+    .sucesso,
+    .sucesso-icone,
+    .treme,
+    .logo::before,
+    .faixa-trilho,
+    .equalizador i { animation: none; }
+
+    .slide { animation: none; }
+    .slide:first-child { opacity: 1; }
+
+    .inicio h1 span { transition: none; }
+}

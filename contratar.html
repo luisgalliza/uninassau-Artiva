@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contratar artista | Artiva</title>
+    <link rel="stylesheet" href="css.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <a href="index.html" class="logo">Artiva</a>
+        <nav class="menu">
+            <a href="index.html">Início</a>
+            <a href="artistas.html">Artistas</a>
+            <a href="comoFunciona.html">Como funciona</a>
+            <a href="sobreNos.html">Sobre nós</a>
+        </nav>
+        <a href="contratar.html" class="btn-contratar ativo-btn">Contratar artista</a>
+    </header>
+
+    <main>
+        <section class="topo-pagina">
+            <span class="tag">PEDIDO DE PROPOSTA</span>
+            <h1>Conte sobre o seu evento <span class="pulsa">e a gente cuida do resto.</span></h1>
+            <p>Preencha os dados abaixo e nossa equipe volta com uma proposta personalizada em até 24 horas.</p>
+        </section>
+
+        <div class="progresso">
+            <div class="progresso-info">
+                <span>SEU PEDIDO</span>
+                <strong id="pct">0%</strong>
+            </div>
+            <div class="progresso-trilho"><div class="progresso-barra" id="barra"></div></div>
+        </div>
+
+        <div class="layout-contratar" id="area-form">
+
+            <form id="form-contratar" class="formulario" novalidate>
+
+                <!-- PASSO 1 -->
+                <fieldset class="etapa">
+                    <legend><span class="etapa-num">1</span> Escolha o artista</legend>
+                    <div class="grade-opcoes">
+                        <label class="opcao-artista">
+                            <input type="radio" name="artista" value="Djavan" data-id="djavan" required>
+                            <span class="opcao-card"><img src="Fotos/djavan.jpg" alt=""><strong>Djavan</strong><small>MPB</small></span>
+                        </label>
+                        <label class="opcao-artista">
+                            <input type="radio" name="artista" value="The Rolling Stones" data-id="stones">
+                            <span class="opcao-card"><img src="Fotos/theRollingStones.jpg" alt=""><strong>The Rolling Stones</strong><small>ROCK</small></span>
+                        </label>
+                        <label class="opcao-artista">
+                            <input type="radio" name="artista" value="Justin Bieber" data-id="bieber">
+                            <span class="opcao-card"><img src="Fotos/justinBieber.jpg" alt=""><strong>Justin Bieber</strong><small>POP INT.</small></span>
+                        </label>
+                        <label class="opcao-artista">
+                            <input type="radio" name="artista" value="Anitta" data-id="anitta">
+                            <span class="opcao-card"><img src="Fotos/anitta.jpg" alt=""><strong>Anitta</strong><small>POP / FUNK</small></span>
+                        </label>
+                        <label class="opcao-artista">
+                            <input type="radio" name="artista" value="Matuê" data-id="matue">
+                            <span class="opcao-card"><img src="Fotos/matue.jpg" alt=""><strong>Matuê</strong><small>TRAP</small></span>
+                        </label>
+                        <label class="opcao-artista">
+                            <input type="radio" name="artista" value="Luan Santana" data-id="luan">
+                            <span class="opcao-card"><img src="Fotos/luanSantana.jpg" alt=""><strong>Luan Santana</strong><small>SERTANEJO</small></span>
+                        </label>
+                        <label class="opcao-artista">
+                            <input type="radio" name="artista" value="Bad Bunny" data-id="bunny">
+                            <span class="opcao-card"><img src="Fotos/badBunny.jpg" alt=""><strong>Bad Bunny</strong><small>LATINO</small></span>
+                        </label>
+                        <label class="opcao-artista">
+                            <input type="radio" name="artista" value="Alok" data-id="alok">
+                            <span class="opcao-card"><img src="Fotos/alok.webp" alt=""><strong>Alok</strong><small>ELETRÔNICA</small></span>
+                        </label>
+                    </div>
+                    <p class="erro-grupo">Escolha um artista para continuar.</p>
+                </fieldset>
+
+                <!-- PASSO 2 -->
+                <fieldset class="etapa">
+                    <legend><span class="etapa-num">2</span> Dados do evento</legend>
+
+                    <div class="linha">
+                        <div class="campo">
+                            <label for="tipo">Tipo de evento</label>
+                            <select id="tipo" name="tipo" required>
+                                <option value="">Selecione...</option>
+                                <option>Casamento</option>
+                                <option>Formatura</option>
+                                <option>Aniversário</option>
+                                <option>Evento corporativo</option>
+                                <option>Festival</option>
+                                <option>Casa de show</option>
+                                <option>Outro</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label for="data">Data do evento</label>
+                            <input type="date" id="data" name="data" required>
+                        </div>
+                    </div>
+
+                    <div class="linha">
+                        <div class="campo">
+                            <label for="cidade">Cidade / local</label>
+                            <input type="text" id="cidade" name="cidade" placeholder="Ex.: Recife - PE" required>
+                        </div>
+                        <div class="campo">
+                            <label for="convidados">Número de convidados</label>
+                            <input type="number" id="convidados" name="convidados" min="10" placeholder="Ex.: 300" required>
+                        </div>
+                    </div>
+
+                    <div class="campo">
+                        <label for="orcamento">Orçamento estimado: <output id="orcamento-valor">R$ 50.000</output></label>
+                        <input type="range" id="orcamento" name="orcamento" min="10000" max="500000" step="5000" value="50000">
+                        <div class="escala"><span>R$ 10 mil</span><span>R$ 500 mil+</span></div>
+                    </div>
+
+                    <div class="campo">
+                        <label>Duração do show</label>
+                        <div class="chips">
+                            <label class="chip"><input type="radio" name="duracao" value="1 hora"><span>1 hora</span></label>
+                            <label class="chip"><input type="radio" name="duracao" value="2 horas" checked><span>2 horas</span></label>
+                            <label class="chip"><input type="radio" name="duracao" value="3 horas ou mais"><span>3 horas ou mais</span></label>
+                        </div>
+                    </div>
+
+                    <div class="campo">
+                        <label>Precisa de algum extra?</label>
+                        <div class="chips">
+                            <label class="chip"><input type="checkbox" name="extras" value="Som e iluminação"><span>🎚️ Som e iluminação</span></label>
+                            <label class="chip"><input type="checkbox" name="extras" value="Camarim"><span>🛋️ Camarim</span></label>
+                            <label class="chip"><input type="checkbox" name="extras" value="Transporte"><span>🚐 Transporte</span></label>
+                            <label class="chip"><input type="checkbox" name="extras" value="Hospedagem"><span>🏨 Hospedagem</span></label>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- PASSO 3 -->
+                <fieldset class="etapa">
+                    <legend><span class="etapa-num">3</span> Seus dados de contato</legend>
+
+                    <div class="campo">
+                        <label for="nome">Nome completo</label>
+                        <input type="text" id="nome" name="nome" placeholder="Como devemos te chamar?" required>
+                    </div>
+
+                    <div class="linha">
+                        <div class="campo">
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" name="email" placeholder="voce@email.com" required>
+                        </div>
+                        <div class="campo">
+                            <label for="telefone">WhatsApp</label>
+                            <input type="tel" id="telefone" name="telefone" placeholder="(81) 99999-9999" minlength="14" required>
+                        </div>
+                    </div>
+
+                    <div class="campo">
+                        <label for="mensagem">Algo mais que a gente deva saber? <small>(opcional)</small></label>
+                        <textarea id="mensagem" name="mensagem" rows="4" maxlength="300" placeholder="Conte o clima do evento, referências, horários..."></textarea>
+                        <span class="contagem"><b id="contagem">0</b>/300</span>
+                    </div>
+
+                    <label class="termos">
+                        <input type="checkbox" name="termos" required>
+                        <span>Concordo em receber contato da Artiva sobre este pedido.</span>
+                    </label>
+                </fieldset>
+
+                <button type="submit" class="btn-principal btn-enviar">Enviar pedido de proposta →</button>
+                <p class="aviso-form">Sem compromisso: você só confirma depois de aprovar a proposta.</p>
+            </form>
+
+            <!-- RESUMO AO VIVO -->
+            <aside class="resumo">
+                <small>RESUMO DO PEDIDO</small>
+                <h3>Seu evento</h3>
+                <dl>
+                    <div><dt>Artista</dt><dd id="r-artista">—</dd></div>
+                    <div><dt>Tipo</dt><dd id="r-tipo">—</dd></div>
+                    <div><dt>Data</dt><dd id="r-data">—</dd></div>
+                    <div><dt>Local</dt><dd id="r-cidade">—</dd></div>
+                    <div><dt>Convidados</dt><dd id="r-convidados">—</dd></div>
+                    <div><dt>Orçamento</dt><dd id="r-orcamento">—</dd></div>
+                    <div><dt>Duração</dt><dd id="r-duracao">—</dd></div>
+                    <div><dt>Extras</dt><dd id="r-extras">—</dd></div>
+                </dl>
+                <div class="garantias">
+                    <span>✔ Resposta em até 24h</span>
+                    <span>✔ Contrato claro e seguro</span>
+                    <span>✔ Acompanhamento até o show</span>
+                </div>
+            </aside>
+        </div>
+
+        <!-- TELA DE SUCESSO -->
+        <section class="sucesso" id="sucesso" hidden>
+            <div class="sucesso-icone">✓</div>
+            <small>PEDIDO ENVIADO</small>
+            <h2>Recebemos o seu pedido!</h2>
+            <p>Nossa equipe vai analisar tudo e entrar em contato pelo WhatsApp e e-mail informados em até 24 horas.</p>
+            <div class="protocolo">Protocolo: <strong id="protocolo">ART-000000</strong></div>
+            <div class="sucesso-botoes">
+                <a href="#" class="btn-principal" id="btn-email">Enviar cópia por e-mail</a>
+                <a href="index.html" class="btn-secundario">Voltar ao início</a>
+                <a href="contratar.html" class="btn-secundario">Fazer outro pedido</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="rodape">
+        <div class="rodape-info">
+            <strong>Artiva</strong>
+            <span>© 2026 Artiva. Todos os direitos reservados.</span>
+        </div>
+        <div class="rodape-info">
+            <span>📍 <a href="https://www.google.com/maps/search/?api=1&query=R.+Guilherme+Pinto,+114+-+Gra%C3%A7as,+Recife+-+PE,+52011-210" target="_blank" rel="noopener">R. Guilherme Pinto, 114 - Graças, Recife - PE, 52011-210</a></span>
+            <span>📞 <a href="tel:+5581998765432">(81) 99876-5432</a></span>
+            <span>✉️ <a href="mailto:contato@artiva.com.br">contato@artiva.com.br</a></span>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
