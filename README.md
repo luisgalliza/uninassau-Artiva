@@ -2,7 +2,7 @@
 
 Este repositório contém o site da **Artiva**, uma empresa **fictícia** de contratação de cantores para eventos, desenvolvido com **HTML, CSS e JavaScript** como **trabalho acadêmico em grupo**.
 
-🔗 **Acesse o site:** [👉 Clique aqui para abrir o site](https://luisgalliza.github.io/uninassau-ArtivaArtistas/)
+🔗 **Acesse o site:** [👉 Clique aqui para abrir o site](https://luisgalliza.github.io/uninassau-Artiva/)
 
 ## 📌 Objetivo
 
@@ -92,7 +92,7 @@ Projeto desenvolvido como **trabalho acadêmico em grupo**, com foco na aplicaç
 
 This repository contains the **Artiva** website, a **fictional** company for booking singers for events, built with **HTML, CSS and JavaScript** as a **group academic project**.
 
-🔗 **Visit the website:** [👉 Click here to open the website](https://luisgalliza.github.io/uninassau-ArtivaArtistas/)
+🔗 **Visit the website:** [👉 Click here to open the website](https://luisgalliza.github.io/uninassau-Artiva/)
 
 ## 📌 Objective
 
